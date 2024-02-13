@@ -7,9 +7,7 @@ const app = express();
 const PORT = process.env.PORT;
 const indexRouter = require("./routes");
 
-mongoose
-  .connect("mongodb://localhost:27017/blog_app")
-  .then(() => console.log("database connected"));
+mongoose.connect(process.env.DB).then(() => console.log("database connected"));
 
 app.use(express.json());
 app.use(express.static("public"));
@@ -18,7 +16,7 @@ app.use(morgan("dev"));
 app.use("/", indexRouter);
 
 app.use((err, req, res, next) => {
-  err = err ? err.toString : "Something went wrong";
+  err = err ? err.toString() : "Something went wrong";
   res.status(500).json({ msg: err });
 });
 

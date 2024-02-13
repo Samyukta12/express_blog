@@ -10,7 +10,7 @@ const Schema = Joi.object({
 const validate = (req, res, next) => {
   const { error } = Schema.validate(req.body);
   if (error) {
-    res.status(402).json({ msg: error });
+    res.status(404).json({ msg: error });
   } else {
     next();
   }

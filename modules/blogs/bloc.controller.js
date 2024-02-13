@@ -1,4 +1,4 @@
-const BlogModel = require("./bloc.model");
+const BlogModel = require("./bloc.model.js");
 
 const create = (payload) => {
   return BlogModel.create(payload);
