@@ -2,13 +2,15 @@ const UserModel = require("./user.model");
 const { hashPassword, comparePassword } = require("../../utils/bcrypt");
 const { mailer } = require("../../services/mailer");
 const { signJWT, verifyJWT } = require("../../utils/token");
+// const { getSlug } = require("../../utils/slugify");
 
 const create = (payload) => {
+  // payload.slug = getSlug(payload);
   return UserModel.create(payload);
 };
 
 const getAll = () => {
-  return UserModel.find();
+  return UserModel.findAll();
 };
 const getById = (_id) => {
   return UserModel.findOne({ _id });
@@ -60,6 +62,7 @@ const changePassword = async (payload) => {
   const { userId, password, hashPassword } = payload;
   if (!userId || !password || !hashPassword)
     throw new Error("Something went wrong");
+  await UserModel.updateById(_id);
 };
 
 module.exports = {

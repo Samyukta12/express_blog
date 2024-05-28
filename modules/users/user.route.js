@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const UserController = require("./user.controller");
-const { validate } = require("./user.validation");
+const { validate, resetValidate, userValidate } = require("./user.validation");
 
 router.get("/", (req, res, next) => {
   try {
-    res.json({ msg: "hello user" });
+    const data = req.body;
+    res.json({ msg: data });
   } catch (err) {
     next(err);
   }
@@ -38,7 +39,7 @@ router.post("/login", validate, async (req, res, next) => {
   }
 });
 
-router.post("/reset_password", validate, async (req, res, next) => {
+router.post("/reset_password", resetValidate, async (req, res, next) => {
   try {
     const result = await UserController.loginUser(req.body);
     res.json({ data: result });
@@ -47,7 +48,7 @@ router.post("/reset_password", validate, async (req, res, next) => {
   }
 });
 
-router.post("/change_password", validate, async (req, res, next) => {
+router.post("/change_password", userValidate, async (req, res, next) => {
   try {
     const result = await UserController.loginUser(req.body);
     res.json({ data: result });
